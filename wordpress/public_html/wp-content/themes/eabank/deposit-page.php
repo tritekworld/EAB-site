@@ -116,10 +116,10 @@
             <div class="col-md-5">
               <div class="deposit-output">
                 <div class="wrap">
-                  <h3 id="vklad">«Высокий доход»</h3>
+                  <h3 id="vklad">VIP</h3>
                   <dl class="stavka">
                     <dd>Ставка</dd>
-                    <dt id="percent">9%</dt>
+                    <dt id="percent">7.1 %</dt>
                   </dl>
                   <div class="row">
                     <div class="col-md-6">
@@ -137,7 +137,7 @@
                       <div class="graph">
                         <dl>
                           <dd>Будет</dd>
-                          <dt id="sum_then" class="sum_then">2 000 000  руб.</dt>
+                          <dt id="sum_then" class="sum_then">1 517 507  руб.</dt>
                         </dl>
                         <div class="graph-body">
                           <div class="graph-earned"></div>
@@ -148,17 +148,17 @@
                   </div> <!-- //.row -->
                   <dl class="result">
                     <dd>Начислено %</dd>
-                    <dt id="sum_prcnt">500 000 руб.</dt>
-                    <dd id="replnt_period">Пополнение за 12 мес.</dd>
-                    <dt id="sum_replnt">1 500 000 руб.</dt>
+                    <dt id="sum_prcnt">17 507 руб.</dt>
+                    <dd id="replnt_period">Пополнение за 2 мес.</dd>
+                    <dt id="sum_replnt">0 руб.</dt>
                   </dl>
                 </div> <!-- //.wrap -->
                 <div class="wrap bottom">
                   <div class="result-period">
-                    К снятию через <span id="result_period">12 мес.</span>
+                    К снятию через <span id="result_period">2 мес.</span>
                   </div> <!-- //.result-period -->
                   <div class="result-sum sum_then" id="result_sum">
-                    200 000 000 руб.
+                    1 517 507 руб.
                   </div> <!-- //.result-sum -->
                   <a href="#modal_calc" class="btn" data-toggle="modal">Заполнить заявку на вклад</a>
                 </div> <!-- //.wrap bottom -->

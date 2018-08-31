@@ -2,7 +2,9 @@
   'use strict';
 
   $(document).ready(function () {
-	//$('input.numeric').number( true, 0, ',', ' ' );
+
+  	$('input.numeric').number( true, 0, ',', ' ' );
+
     $('.carousel-caption .btn').click(function() {
       $('#modal').modal('show');
     });
@@ -14,9 +16,15 @@
   		slidesToShow: 4,
   		responsive: [
   			{
-  				breakpoint: 768,
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1
+          }
+        },
+        {
+  				breakpoint: 992,
   				settings: {
-		        slidesToShow: 1
+		        slidesToShow: 3
 		      }
   			}
   		]
@@ -129,13 +137,13 @@ $('select').change(function(){
 
   $.each(deposits,function(key,data) {
     if(key == vklad){
-      console.log('Вклад: ' + key + sum);
+      //console.log('Вклад: ' + key + sum);
         $.each(data, function(index,value) {
           if(value['cur'] == valuta){
             var plus = Math.round(sum*value['stavka']*term/(365*100)).toFixed(2);
                 plus = parseInt(plus);
             var result = Math.round(sum + plus).toFixed(2);
-            console.log('Итоговая сумма: ' + result + '; Ваша выгода: = '+ plus);
+            //console.log('Итоговая сумма: ' + result + '; Ваша выгода: = '+ plus);
           }
         });
     }
@@ -266,7 +274,7 @@ $('select').change(function(){
   function get_month(d) {
     return d + ' дней (' + (Math.round(parseInt(d)/30)) +' мес.)';
   }
-  calculate();
+  
 $("#calc input:not([type=text])").on('change', function(){
   calculate();
 });
@@ -292,7 +300,7 @@ $("#calc input:not([type=text])").on('change', function(){
     monthly:$("#capitalization").prop('checked'),
     part:$("#partout").prop('checked')}, max=0, selected='',mplus='0',curr;
     $.each(input_data,function(key,val) {
-    console.log(key+': '+val);
+    //console.log(key+': '+val);
     });
     $.each(deposits,function(key,data) {
           
@@ -349,7 +357,7 @@ $("#calc input:not([type=text])").on('change', function(){
           
         });
     curr= get_curr(input_data.curr);
-    console.log('Selected: '+selected+'; Result: '+max);
+    //console.log('Selected: '+selected+'; Result: '+max);
         $('#sum_now').text($.number(input_data.sum, 0, ',', ' ' ) + curr);
         $('.sum_then').text($.number(max, 0, ',', ' ' ) + curr);
                 $('#sum_prcnt').text($.number(mplus, 0, ',', ' ' ) + curr);
@@ -389,7 +397,7 @@ $("#calc input:not([type=text])").on('change', function(){
     // AutoNumeric for Credit Calc
 
     // The options are...optional :)
-    const autoNumericRub = {
+/*    const autoNumericRub = {
         digitGroupSeparator        : ' ',
         decimalCharacter           : ',',
         decimalCharacterAlternative: '.',
@@ -405,7 +413,7 @@ $("#calc input:not([type=text])").on('change', function(){
         currencySymbol             : ' мес.',
         currencySymbolPlacement    : AutoNumeric.options.currencySymbolPlacement.suffix,
         roundingMethod             : AutoNumeric.options.roundingMethod.halfUpSymmetric,
-    };
+    };*/
 
     
     // credit calc

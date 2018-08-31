@@ -17,9 +17,6 @@
 
   <?php wp_head(); ?>
 
-  <!-- Autonumeric CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
-
 </head>
 <body>
 
@@ -76,33 +73,15 @@
           <h4 class="modal-title">Мобильный банк</h4>
         </div>
         <div class="modal-body">
-          <ul class="bank-lica nav nav-tabs" id="mobbankTab">
-            <li><a href="#fizlica">Для физических лиц</a></li>
-            <li><a href="#urlica">Для юридических лиц</a></li>
+          <ul class="bank-lica list-unstyled list-inline">
+            <li class="andriod"><a href="https://eab.handybank.ru/" target="_blank">Для Android устройств</a></li>
+            <li class="apple">
+              <a href="https://eab.handybank.ru/" target="_blank">
+                Для Apple устройств
+                <!-- <small>(Данное приложение скоро будет доступно)</small> -->
+              </a>
+            </li>
           </ul>
-          <div class="tab-content">
-            <div id="fizlica" class="tab-pane fade">
-              <ul class="list-unstyled list-inline">
-                <li class="andriod"><a href="https://eab.handybank.ru/" target="_blank">Для Android устройств</a></li>
-                <li class="apple">
-                  <a href="#" target="_blank">
-                    Для Apple устройств
-                    <small>(Данное приложение скоро будет доступно)</small>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div id="urlica" class="tab-pane fade">
-              <ul class="list-unstyled list-inline">
-                <li class="andriod"><a href="https://play.google.com/store/apps/details?id=com.bifit.mobile.corporate.eab" target="_blank">Для Android устройств</a></li>
-                <li class="apple">
-                  <a href="#" target="_blank">Для Apple устройств
-                    <small>(Данное приложение скоро будет доступно)</small>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div> <!-- //.tab-content -->
         </div>
       </div>
     </div>

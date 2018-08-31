@@ -72,13 +72,13 @@ class CurrencyTable {
 					$output_data[0] = $flag . ' ' . $currency;
 
 					// Rate (price)
-					$output_data[1] = number_format_i18n( $currency_data_filtered['rate'], 2 );
+					$output_data[1] = number_format_i18n( $currency_data_filtered['rate'], 4 );
 
 					// Change %
 					$output_data[2] = sprintf(
 						/* translators: %s - currency change number (digit) in percentage. %% - one percentage symbol (typed twice for escape in printf() func.) */
 						__( '%s<span class="currencyconverter-percentage-symbol">%%</span>', Plugin::NAME ),
-						Text::number_format_i18n_plus_minus( $currency_data_filtered['change_percentage'], 2 )
+						Text::number_format_i18n_plus_minus( $currency_data_filtered['change_percentage'], 4 )
 					);
 
 					// Wrap into the colored spans.

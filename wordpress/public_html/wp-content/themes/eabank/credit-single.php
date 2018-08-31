@@ -42,7 +42,7 @@
 
         <div class="credit-features">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <div class="wrap">
                 <div>
                   <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_credit1.png" alt="Сумма кредита">
@@ -51,7 +51,7 @@
                 <h4>От 100 000 руб.</h4>
               </div> <!-- //.wrap -->
             </div> <!-- //.col -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <div class="wrap">
                 <div>
                   <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_credit2.png" alt="Срок кредита">
@@ -60,7 +60,7 @@
                 <h4>До 5-ти лет</h4>
               </div> <!-- //.wrap -->
             </div> <!-- //.col -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <div class="wrap">
                 <div>
                   <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_credit3.png" alt="Процент одобрения">
@@ -69,7 +69,7 @@
                 <h4>90% Одобрения</h4>
               </div> <!-- //.wrap -->
             </div> <!-- //.col -->
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <div class="wrap">
                 <div>
                   <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon_credit4.png" alt="Решение по кредиту">
@@ -85,37 +85,37 @@
         <div class="collapse collapse-wrap" id="moreCredit">
           <div class="credit-data">
             <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Название кредита</h5>
                   <p><strong>Кредит «Разовый»</strong></p>
                 </div> <!-- //.box -->
               </div> <!-- //.col -->
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Для кого</h5>
                   <p>Для физических лиц</p>
                 </div> <!-- //.box -->
               </div> <!-- //.col -->
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Ставка</h5>
                   <p>от 9,5 %</p>
                 </div> <!-- //.box -->
               </div> <!-- //.col -->
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Срок кредита</h5>
                   <p>до 5-ти лет</p>
                 </div> <!-- //.box -->
               </div> <!-- //.col -->
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Пакет документов</h5>
                   <p>Паспорт, справка подтверждения дохода (по форме банка), второй документ подвтерждающий личность</p>
                 </div> <!-- //.box -->
               </div> <!-- //.col -->
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-2">
                 <div class="box">
                   <h5>Сумма кредита</h5>
                   <p>от 100 000 до 1 000 000 руб.</p>
@@ -152,7 +152,7 @@
                          <li>1 млн.</li>
                        </ul>
                      </div> <!-- //.calc-group -->
-                     <input type="text" class="form-control" id="credit_amount" value="150000">
+                     <input type="text" class="form-control numeric" id="credit_amount" value="150000">
                      <span id="credit_amount_sign"></span>
                   </div> <!-- //.form-group -->
                   <div class="form-group">
