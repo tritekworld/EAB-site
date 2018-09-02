@@ -57,7 +57,7 @@
         <div class="modal-body">
           <ul class="bank-lica list-unstyled list-inline">
             <li><a href="https://eab.handybank.ru/" target="_blank">Для физических лиц</a></li>
-            <li><a href="https://dbo.eab.ru/" target="_blank">Для юридических лиц</a></li>
+            <li><a href="https://dbo.eab.ru" target="_blank">Для юридических лиц</a></li>
           </ul>
         </div>
       </div>
