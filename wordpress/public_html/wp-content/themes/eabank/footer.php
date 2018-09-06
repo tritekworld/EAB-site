@@ -87,6 +87,11 @@
         </div> <!-- //.col-md-5 -->
       </div> <!-- //.container -->
     </div> <!-- //.footer-widgets -->
+    <div class="footer-dev">
+      <div class="container">
+        <p>Сайт разработан <a href="http://tritek.su/" target="_blank">TRITEK</a> & <a href="http://helengroup.ru/" target="_blank">HELEN GROUP</a></p>
+      </div> <!-- //.container -->
+    </div> <!-- //.footer-dev -->
   </footer>
 
   <?php wp_footer(); ?>
