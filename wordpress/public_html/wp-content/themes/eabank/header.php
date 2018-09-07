@@ -74,9 +74,9 @@
         </div>
         <div class="modal-body">
           <ul class="bank-lica list-unstyled list-inline">
-            <li class="andriod"><a href="https://eab.handybank.ru/" target="_blank">Для Android устройств</a></li>
+            <li class="andriod"><a href="https://play.google.com/store/apps/details?id=ru.handybank.handybank" target="_blank">Для Android устройств</a></li>
             <li class="apple">
-              <a href="https://eab.handybank.ru/" target="_blank">
+              <a href="https://itunes.apple.com/ru/app/id1203082299" target="_blank">
                 Для Apple устройств
                 <!-- <small>(Данное приложение скоро будет доступно)</small> -->
               </a>
