@@ -13,6 +13,10 @@ class N2SS3Shortcode {
 
     public static function doShortcode($parameters) {
 
+        if (is_admin() && isset($_GET['nextendajax'])) {
+            return '';
+        }
+
         if (!empty($parameters['alias'])) {
             $parameters['slider'] = $parameters['alias'];
         }
@@ -178,3 +182,21 @@ add_action('do_feed_rdf', 'N2SS3Shortcode::addNoopShortCode', 0);
 add_action('do_feed_rss', 'N2SS3Shortcode::addNoopShortCode', 0);
 add_action('do_feed_rss2', 'N2SS3Shortcode::addNoopShortCode', 0);
 add_action('do_feed_atom', 'N2SS3Shortcode::addNoopShortCode', 0);
+
+/**
+ * Remove sliders from the AMP version of the site
+ * @url https://wordpress.org/plugins/amp/
+ */
+add_action('pre_amp_render_post', 'N2SS3Shortcode::addNoopShortCode', 0);
+
+
+add_action('after_setup_theme', function () {
+    if (function_exists('KTT_share_args_for_posts')) {
+        /**
+         * Theme: Narratium
+         * @url https://themeforest.net/item/narratium-simplicity-for-authors/20844434
+         */
+        add_action('wp', 'N2SS3Shortcode::addNoopShortCode', 0);
+        add_action('wp', 'N2SS3Shortcode::addShortCode', 11);
+    }
+});

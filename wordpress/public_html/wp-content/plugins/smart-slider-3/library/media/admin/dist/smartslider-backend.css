@@ -1733,7 +1733,13 @@ html[dir=rtl] .n2-ss-small-more {
     min-height: 73px;
     z-index: 1000;
     vertical-align: top;
-    padding-bottom: 5px;
+}
+
+.n2-ss-core-item-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
 }
 
 .n2-ss-core-item:before {
@@ -1742,12 +1748,19 @@ html[dir=rtl] .n2-ss-small-more {
     content: "\e943";
     display: block;
     line-height: 32px;
-    margin-top: 16px;
-    margin-bottom: 3px;
+    margin-top: 14px;
 }
 
 .n2-ss-core-item[data-item="heading"]:before {
     content: "\e945";
+}
+
+.n2-ss-core-item[data-item="highlightedHeading"]:before {
+    content: "\e990";
+}
+
+.n2-ss-core-item[data-item="rotatingHeading"]:before {
+    content: "\e991";
 }
 
 .n2-ss-core-item[data-item="text"]:before {

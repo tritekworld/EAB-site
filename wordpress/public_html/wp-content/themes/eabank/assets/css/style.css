@@ -53,7 +53,7 @@
   margin-bottom: 0;
 }
 .switcher li {
-  width: 49%;
+  width: 50%;
   text-align: center;
 }
 .switcher li a {
@@ -629,6 +629,7 @@ div + .credit-calc {
 }
 .deposit-output .wrap .result dt {
   float: right;
+  min-width: 7em;
 }
 .deposit-output .wrap.bottom {
   border-top: 1px solid #ededed;
@@ -1357,7 +1358,7 @@ hr {
 .top-header ul:first-child li:last-child a {
   text-decoration: underline;
 }
-.top-header ul:first-child li:last-child:before {
+.top-header ul:first-child li:last-child a:before {
   content: '';
   display: inline-block;
   width: 25px;
@@ -2037,6 +2038,11 @@ p.font-size-16 {
   left: auto;
 }
 @media (min-width: 0px) and (max-width: 767px) {
+  .page-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
   .top-header ul:first-child li:first-child {
     margin-right: 0;
   }
@@ -2053,7 +2059,7 @@ p.font-size-16 {
     background-size: contain;
     margin-right: 0;
   }
-  .top-header ul:first-child li:last-child:before {
+  .top-header ul:first-child li:last-child a:before {
     width: 19px;
     height: 14px;
     background-size: contain;
@@ -2295,6 +2301,7 @@ p.font-size-16 {
   }
   .calc-wrap form {
     background: none;
+    height: auto;
   }
   .switcher-wrap {
     width: 100%;
@@ -2302,12 +2309,22 @@ p.font-size-16 {
   .deposit-calc form {
     padding: 15px;
   }
+  .deposit-calc form .calc-group .checkbox {
+    margin-right: 0;
+  }
   .deposit-output {
     padding-left: 0;
     height: auto;
   }
   .deposit-output .wrap {
     padding: 15px;
+  }
+  .deposit-output .btn {
+    padding: 20px;
+  }
+  .credit-output {
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .switcher-wrap .radio-inline:nth-child(2) {
     line-height: 1;
@@ -2412,16 +2429,21 @@ p.font-size-16 {
     height: 50px;
     line-height: 50px;
     background-color: white;
-    padding: 0 15px;
     margin-bottom: 10px;
     font-size: 18px;
     vertical-align: middle;
     position: relative;
   }
-  footer .footer-menu h4.collapsed:after {
+  footer .footer-menu h4 a {
+    display: block;
+    width: 100%;
+    padding: 0 15px;
+    color: #222222;
+  }
+  footer .footer-menu h4 a.collapsed:after {
     background: url('../img/arrow_down_small.png') no-repeat center;
   }
-  footer .footer-menu h4:after {
+  footer .footer-menu h4 a:after {
     content: '';
     background: url('../img/arrow_up_small.png') no-repeat center;
     background-size: contain;

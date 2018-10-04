@@ -89,7 +89,7 @@ if (typeof window.n2SSIframeLoader !== "function") {
             if (this.exists()) {
                 var customWidth = 0,
                     adjustLeftOffset = 0,
-                    $fullWidthTo = $('.fl-responsive-preview .fl-builder-content');
+                    $fullWidthTo = $('.editor-writing-flow,.fl-responsive-preview .fl-builder-content');
                 if ($fullWidthTo.length) {
                     customWidth = $fullWidthTo.width();
                     adjustLeftOffset = $fullWidthTo.offset().left;

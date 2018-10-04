@@ -148,7 +148,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         new N2ElementOnOff($aliasGroup, 'alias-id', n2_('Use as ID on element before slider'), '', array(
             'tip'           => 'You can have an empty div element before our slider, which would use this alias as its id. This can be useful, if you would want to use #your-alias as the url in your menu to jump to that element.',
             'relatedFields' => array(
-                'alias-smoothscroll'
+                'slideralias-smoothscroll'
             )
         ));
 
@@ -286,12 +286,12 @@ class N2SmartsliderSlidersModel extends N2Model {
         new N2ElementOnOff($autoplayGroup, 'autoplay', n2_('Enable'), 0, array(
             'relatedAttribute' => 'autoplay',
             'relatedFields'    => array(
-                'autoplayDuration',
-                'autoplayStart',
-                'autoplayfinish',
-                'autoplayAllowReStart',
-                'autoplay-stop-on',
-                'autoplay-resume-on'
+                'sliderautoplayDuration',
+                'sliderautoplayStart',
+                'sliderautoplayfinish',
+                'sliderautoplayAllowReStart',
+                'sliderautoplay-stop-on',
+                'sliderautoplay-resume-on'
             )
         ));
         new N2ElementNumber($autoplayGroup, 'autoplayDuration', n2_('Interval'), 8000, array(
@@ -316,7 +316,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         $optimizeImages = new N2ElementGroup($optimize2, 'optimize-images', n2_('Optimize images'));
         new N2ElementOnOff($optimizeImages, 'optimize', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'optimize-quality'
+                'slideroptimize-quality'
             )
         ));
         new N2ElementNumber($optimizeImages, 'optimize-quality', n2_('Quality'), 70, array(
@@ -329,8 +329,8 @@ class N2SmartsliderSlidersModel extends N2Model {
         $backgroundImage = new N2ElementGroup($optimize2, 'background-image-resize', n2_('Background image resize'), array('tip' => n2_('Only works if the \'Optimize images\' option is turned on too!')));
         new N2ElementOnOff($backgroundImage, 'optimize-background-image-custom', n2_('Enable'), '0', array(
             'relatedFields' => array(
-                'optimize-background-image-width',
-                'optimize-background-image-height'
+                'slideroptimize-background-image-width',
+                'slideroptimize-background-image-height'
             )
         ));
         new N2ElementNumber($backgroundImage, 'optimize-background-image-width', n2_('Width'), 800, array(
@@ -366,7 +366,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         $playWhenVisible = new N2ElementGroup($loadingCore, 'play-when-visible', n2_('Play when visible'));
         new N2ElementOnOff($playWhenVisible, 'playWhenVisible', n2_('Enable'), 1, array(
             'relatedFields' => array(
-                'playWhenVisibleAt'
+                'sliderplayWhenVisibleAt'
             )
         ));
         new N2ElementNumber($playWhenVisible, 'playWhenVisibleAt', n2_('At'), 50, array(
@@ -402,10 +402,10 @@ class N2SmartsliderSlidersModel extends N2Model {
             'tip' => n2_('Turn this off to allow contents following the slider get into the same row where the slider is.')
         ));
 
-        new N2ElementTextarea($developerOptions, 'custom-css-codes', 'CSS', '', array(
+        new N2ElementTextarea($developerOptions, 'custom-css-codes', n2_('CSS'), '', array(
             'fieldStyle' => 'width:600px;height:300px;'
         ));
-        new N2ElementTextarea($developerOptions, 'callbacks', 'JavaScript callbacks', '', array(
+        new N2ElementTextarea($developerOptions, 'callbacks', n2_('JavaScript callbacks'), '', array(
             'fieldStyle' => 'width:600px;height:300px;'
         ));
         new N2ElementTextarea($developerOptions, 'related-posts', n2_('Post IDs') . ' (' . n2_('one per line') . ')', '', array(

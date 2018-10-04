@@ -33,7 +33,7 @@ N2D('SmartSliderWidgetArrowImage', function ($, undefined) {
         }, this));
 
         this.previousResize = this.previous.find('.n2-resize');
-        if (this.previousResize.length == 0) {
+        if (this.previousResize.length === 0) {
             this.previousResize = this.previous;
         }
 
@@ -44,7 +44,7 @@ N2D('SmartSliderWidgetArrowImage', function ($, undefined) {
         }, this));
 
         this.nextResize = this.next.find('.n2-resize');
-        if (this.nextResize.length == 0) {
+        if (this.nextResize.length === 0) {
             this.nextResize = this.next;
         }
 

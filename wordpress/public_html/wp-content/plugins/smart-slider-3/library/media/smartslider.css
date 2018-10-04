@@ -14,7 +14,7 @@
     overflow: hidden;
 }
 
-.n2-ss-align.n2-ss-slider-align-visible {
+.n2-ss-align.n2-ss-align-visible {
     overflow: visible;
 }
 
@@ -494,7 +494,7 @@
     visibility: visible;
 }
 
-.n2-ss-shape-divider {
+.n2-ss-slider .n2-ss-shape-divider {
     position: absolute;
     left: 0;
     width: 100%;
@@ -503,45 +503,45 @@
     z-index: 13;
 }
 
-.n2-ss-shape-divider-inner {
+.n2-ss-slider .n2-ss-shape-divider-inner {
     height: 100%;
 }
 
-.n2-ss-shape-divider svg {
+.n2-ss-slider .n2-ss-shape-divider svg {
     display: block;
     height: 100%;
     width: 100%;
 }
 
-.n2-ss-shape-divider-top {
+.n2-ss-slider .n2-ss-shape-divider-top {
     top: 0;
 }
 
-.n2-ss-shape-divider-top.n2-ss-flip-horizontal {
+.n2-ss-slider .n2-ss-shape-divider-top.n2-ss-flip-horizontal {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
 
-.n2-ss-shape-divider-bottom {
+.n2-ss-slider .n2-ss-shape-divider-bottom {
     bottom: 0;
     -webkit-transform: scaleY(-1);
     transform: scaleY(-1);
 }
 
-.n2-ss-shape-divider-bottom.n2-ss-flip-horizontal {
+.n2-ss-slider .n2-ss-shape-divider-bottom.n2-ss-flip-horizontal {
     -webkit-transform: scale(-1);
     transform: scale(-1);
 }
 
-.n2-ss-shape-divider .n2-ss-divider-start {
+.n2-ss-slider .n2-ss-shape-divider .n2-ss-divider-start {
     visibility: hidden;
 }
 
-.n2-ss-shape-divider.n2-ss-divider-animate .n2-ss-divider-start {
+.n2-ss-slider .n2-ss-shape-divider.n2-ss-divider-animate .n2-ss-divider-start {
     visibility: visible;
 }
 
-.n2-ss-shape-divider.n2-ss-divider-animate .n2-ss-divider-end {
+.n2-ss-slider .n2-ss-shape-divider.n2-ss-divider-animate .n2-ss-divider-end {
     visibility: hidden;
 }
 

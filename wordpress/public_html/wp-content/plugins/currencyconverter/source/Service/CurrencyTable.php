@@ -46,7 +46,7 @@ class CurrencyTable {
 				$currency_obj = new Currency( $this->parameters['base_currency'], $currency );
 				// Проверяем доступность валюты
 				if( $currency_obj->is_available() ) {
-					$currency_data_filtered = Text::currency_info_for_round( $currency_obj, 2 );
+					$currency_data_filtered = Text::currency_info_for_round( $currency_obj, 4 );
 					$currency_data_filtered['trend'] = esc_attr( $currency_data_filtered['trend'] );
 					$have_data = true;
 

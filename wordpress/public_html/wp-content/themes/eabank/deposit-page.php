@@ -53,13 +53,13 @@
                 <div class="calc-group amount">
                   <div class="form-group">
                     <label for="input_amount">Сумма вклада</label>
-                    <input type="text" id="input_amount" class="form-control numeric" value="1000">
+                    <input type="text" id="input_amount" class="form-control numeric" value="1500000">
                   </div> <!-- //.form-group -->
                   <div id="amount_range"></div>
                   <ul class="range-scale">
                     <li>1 т.</li>
                     <li>3 млн.</li>
-					<li>7 млн.</li>
+          					<li>7 млн.</li>
                     <li>10 млн.</li>
                     <li>15 млн.</li>
                     <li>20 млн.</li>
@@ -68,7 +68,7 @@
                 <div class="calc-group period">
                   <div class="form-group">
                     <label for="select_period">На срок</label>
-					<input type="text" id="select_period" class="form-control " value="60 дней (2 мес.)">
+					<input type="text" id="select_period" class="form-control " value="366 дней (12 мес.)">
                   </div> <!-- //.form-group -->
                   <div id="period_range"></div>
                   <ul class="range-scale">
@@ -119,7 +119,7 @@
                   <h3 id="vklad">VIP</h3>
                   <dl class="stavka">
                     <dd>Ставка</dd>
-                    <dt id="percent">7.1 %</dt>
+                    <dt id="percent">6.85 %</dt>
                   </dl>
                   <div class="row">
                     <div class="col-md-6">
@@ -137,7 +137,7 @@
                       <div class="graph">
                         <dl>
                           <dd>Будет</dd>
-                          <dt id="sum_then" class="sum_then">1 517 507  руб.</dt>
+                          <dt id="sum_then" class="sum_then">1 603 032  руб.</dt>
                         </dl>
                         <div class="graph-body">
                           <div class="graph-earned"></div>
@@ -148,17 +148,17 @@
                   </div> <!-- //.row -->
                   <dl class="result">
                     <dd>Начислено %</dd>
-                    <dt id="sum_prcnt">17 507 руб.</dt>
-                    <dd id="replnt_period">Пополнение за 2 мес.</dd>
+                    <dt id="sum_prcnt">103 032 руб.</dt>
+                    <dd id="replnt_period">Пополнение за 12 мес.</dd>
                     <dt id="sum_replnt">0 руб.</dt>
                   </dl>
                 </div> <!-- //.wrap -->
                 <div class="wrap bottom">
                   <div class="result-period">
-                    К снятию через <span id="result_period">2 мес.</span>
+                    К снятию через <span id="result_period">12 мес.</span>
                   </div> <!-- //.result-period -->
                   <div class="result-sum sum_then" id="result_sum">
-                    1 517 507 руб.
+                    1 603 032 руб.
                   </div> <!-- //.result-sum -->
                   <a href="#modal_calc" class="btn" data-toggle="modal">Заполнить заявку на вклад</a>
                 </div> <!-- //.wrap bottom -->

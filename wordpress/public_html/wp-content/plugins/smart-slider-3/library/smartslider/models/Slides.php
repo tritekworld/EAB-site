@@ -211,7 +211,7 @@ class N2SmartsliderSlidesModel extends N2Model {
                     'diagonal2'  => '&#8600;'
                 ),
                 'relatedFields' => array(
-                    'backgroundColorEnd'
+                    'slidebackgroundColorEnd'
                 )
             ));
 

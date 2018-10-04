@@ -4504,22 +4504,7 @@ N2D('BasicCSSFont', ['BasicCSSSkeleton'], function ($, undefined) {
             bold: $('#layerweight'),
             weight: $('#layerweight'),
             lineheight: $('#layerlineheight'),
-            align: $('#layertextalign').on('nextendChange', $.proxy(function (e) {
-                if (!this.manager.underActivate && !this.manager.inPresetList) {
-                    switch ($(e.currentTarget).val()) {
-                        case 'left':
-                        case 'justify':
-                            nextend.currentEditor.fragmentEditor.mainContainer.getSelectedLayer().setProperty('align', 'left', 'layer');
-                            break;
-                        case 'right':
-                            nextend.currentEditor.fragmentEditor.mainContainer.getSelectedLayer().setProperty('align', 'right', 'layer');
-                            break;
-                        default:
-                            nextend.currentEditor.fragmentEditor.mainContainer.getSelectedLayer().setProperty('align', 'center', 'layer');
-                            break;
-                    }
-                }
-            }, this)),
+            align: $('#layertextalign'),
             underline: $('#layerdecoration'),
             italic: $('#layerdecoration')
 
@@ -7049,7 +7034,7 @@ N2D('FormElementUrl', ['FormElement'], function ($, undefined) {
                             .trigger('keyup').focus();
 
                         this.content.append('<hr style="margin: 0 -20px;"/>');
-                        var external = $('<div class="n2-input-button"><input placeholder="External url" type="text" id="external-url" name="external-url" value="" /><a href="#" class="n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-uc n2-h4">Insert</a></div>')
+                        var external = $('<div class="n2-input-button"><input placeholder="'+ n2_("External url") +'" type="text" id="external-url" name="external-url" value="" /><a href="#" class="n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-uc n2-h4">'+n2_("Insert")+'</a></div>')
                                 .css({
                                     display: 'block',
                                     textAlign: 'center'

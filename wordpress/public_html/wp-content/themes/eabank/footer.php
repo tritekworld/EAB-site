@@ -1,9 +1,10 @@
-  <footer>
+  <footer id="footer">
     <div class="footer-menu">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h4 data-toggle="collapse" data-target="#list1" class="collapsed">О Банке</h4>
+            <h4 class="visible-md visible-lg">О Банке</h4>
+            <h4 class="hidden-md hidden-lg"><a href="#list1" data-toggle="collapse" class="collapsed">О Банке</a></h4>
             <?php wp_nav_menu( array(
               'menu'            => 'footer_menu_about',
               'menu_class'      => 'list1',
@@ -15,7 +16,8 @@
             ) ); ?>
           </div> <!-- //.col -->
           <div class="col-md-3">
-            <h4 data-toggle="collapse" data-target="#list2" class="collapsed">Физическим лицам</h4>
+            <h4 class="visible-md visible-lg">Физическим лицам</h4>
+            <h4 class="hidden-md hidden-lg"><a href="#list2" data-toggle="collapse" class="collapsed">Физическим лицам</a></h4>
             <?php wp_nav_menu( array(
               'menu'            => 'footer_menu_fiz',
               'menu_class'      => 'list2',
@@ -27,7 +29,8 @@
             ) ); ?>
           </div> <!-- //.col-->
           <div class="col-md-3">
-            <h4 data-toggle="collapse" data-target="#list3" class="collapsed">Бизнесу</h4>
+            <h4 class="visible-md visible-lg">Бизнесу</h4>
+            <h4 class="hidden-md hidden-lg"><a href="#list3" data-toggle="collapse" class="collapsed">Бизнесу</a></h4>
             <?php wp_nav_menu( array(
               'menu'            => 'footer_menu_buisness',
               'menu_class'      => 'list3',
@@ -39,7 +42,8 @@
             ) ); ?>
           </div> <!-- //.col -->
           <div class="col-md-12">
-            <h4 data-toggle="collapse" data-target="#list4" class="collapsed">Информационные материалы</h4>
+            <h4 class="visible-md visible-lg">Информационные материалы</h4>
+            <h4 class="hidden-md hidden-lg"><a href="#list4" data-toggle="collapse" class="collapsed">Информационные материалы</a></h4>
             <?php wp_nav_menu( array(
               'menu'            => 'footer_menu_info',
               'menu_class'      => 'list4',
@@ -80,7 +84,7 @@
             <p>
               © 2014-<?php echo date('Y'); ?><br>
               ООО КБ «Евроазиатский Инвестиционный Банк»<br>
-              Лицензия №2897, выданная Банком России 26.11.2012г.<br>
+              Регистрационный №2897 от 10.06.1994г.<br>
               119021, г. Москва, Зубовский бульвар, д. 22/39
             </p>
           </div> <!-- //.widget -->

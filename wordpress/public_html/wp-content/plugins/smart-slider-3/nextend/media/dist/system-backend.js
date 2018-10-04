@@ -2466,8 +2466,14 @@ N2D('NextendFontRenderer', ['NextendVisualRenderer'], function ($, undefined) {
         if (this.editorController.previewModesList[modeKey].renderOptions.combined) {
             for (var i = 1; i < visualTabs.length; i++) {
                 visualTabs[i] = $.extend({}, visualTabs[i - 1], visualTabs[i]);
-                if (visualTabs[i].size == visualTabs[0].size) {
+                if (visualTabs[i].size === visualTabs[0].size) {
                     visualTabs[i].size = '100||%';
+                } else {
+                    var size1 = visualTabs[0].size.split('||'),
+                        size2 = visualTabs[i].size.split('||');
+                    if (size1.length === 2 && size2.length === 2 && size1[1] === 'px' && size2[1] === 'px') {
+                        visualTabs[i].size = Math.round(size2[0] / size1[0] * 100) + '||%';
+                    }
                 }
             }
         }
@@ -2505,7 +2511,7 @@ N2D('NextendFontRenderer', ['NextendVisualRenderer'], function ($, undefined) {
         }
         target.fontFamily = families.join(',');
     };
-    
+
     NextendFontRenderer.prototype.getFamily = function (family) {
         var translatedFamily = $(window).triggerHandler('n2Family', [family]);
         if (translatedFamily === undefined) {
@@ -3895,7 +3901,7 @@ N2D('Icons', function ($, undefined) {
                     600
                 ],
                 fit: true,
-                title: 'Icons',
+                title: n2_('Icons'),
                 back: false,
                 close: true,
                 content: $container

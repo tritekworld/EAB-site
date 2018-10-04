@@ -56,6 +56,20 @@ class N2Platform {
         return wp_get_current_user()->user_email;
     }
 
+    public static function needStrongerCSS() {
+        static $need = null;
+        if ($need === null) {
+            if (!N2Platform::$isAdmin && function_exists('et_is_builder_plugin_active') && et_is_builder_plugin_active()) {
+                $need = true;
+            }
+            if ($need === null) {
+                $need = false;
+            }
+        }
+
+        return $need;
+    }
+
     public static function adminHideCSS() {
         echo '
             html {
@@ -155,7 +169,23 @@ class N2Platform {
     }
 
     public static function getDebug() {
-        $debug = array();
+        $debug = array('');
+
+
+        $debug[] = 'Path to uri:';
+        $uris    = N2Uri::getUris();
+        $paths   = N2Filesystem::getPaths();
+        foreach ($uris AS $i => $uri) {
+            $debug[] = $paths[$i] . ' => ' . $uri;
+        }
+
+        $debug[] = '';
+        $debug[] = 'wp_upload_dir() => ';
+        foreach (wp_upload_dir() AS $k => $v) {
+            $debug[] = $k . ': ' . $v;
+        }
+        $debug[] = '<=';
+        $debug[] = '';
 
         $theme       = wp_get_theme();
         $parentTheme = $theme->parent();

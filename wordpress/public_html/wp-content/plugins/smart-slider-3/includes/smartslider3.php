@@ -13,7 +13,7 @@ class SmartSlider3 {
         SmartSlider3::registerApplication();
 
         if (get_option("n2_ss3_version") != N2SS3::$completeVersion) {
-            self::install(true);
+            self::install();
         }
 
         add_action('widgets_init', 'SmartSlider3::widgets_init', 11);
@@ -21,7 +21,7 @@ class SmartSlider3 {
 
         add_action('init', 'SmartSlider3::_init');
 
-        add_action('init', 'SmartSlider3::preRender');
+        add_action('init', 'SmartSlider3::preRender', 1000000);
 
         add_action('load-toplevel_page_' . NEXTEND_SMARTSLIDER_3_URL_PATH, 'SmartSlider3::removeEmoji');
 
@@ -29,7 +29,6 @@ class SmartSlider3 {
 
         add_action('network_admin_menu', 'SmartSlider3::nextendNetworkAdminInit');
 
-        add_action('wpmu_new_blog', 'SmartSlider3::install_new_blog');
         add_action('delete_blog', 'SmartSlider3::delete_blog', 10, 2);
 
         require_once dirname(NEXTEND_SMARTSLIDER_3__FILE__) . DIRECTORY_SEPARATOR . 'includes/shortcode.php';
@@ -68,6 +67,16 @@ class SmartSlider3 {
         if (defined('JETPACK__VERSION')) {
             require_once dirname(__FILE__) . '/integrations/jetpack.php';
         }
+
+        if (defined('GUTENBERG_VERSION')) {
+            require_once dirname(__FILE__) . '/integrations/gutenberg/block.php';
+        }
+
+
+        if (defined('TABLEPRESS_ABSPATH')) {
+            require_once dirname(__FILE__) . '/integrations/tablepress.php';
+        }
+
 
         /**
          * For ajax based page loaders
@@ -230,50 +239,9 @@ class SmartSlider3 {
         n2_exit();
     }
 
-    public static function install($network_wide) {
-        global $wpdb;
+    public static function install() {
 
-        N2WP::install($network_wide);
-
-        if (is_multisite() && $network_wide) {
-            $tmpPrefix = $wpdb->prefix;
-            $blogs     = get_sites(array('network_id' => $wpdb->siteid, 'number' => null));
-            foreach ($blogs AS $blog) {
-                $wpdb->prefix = $wpdb->get_blog_prefix($blog->blog_id);
-
-                N2Base::getApplication("smartslider")
-                      ->getApplicationType('backend')
-                      ->render(array(
-                          "controller" => "install",
-                          "action"     => "index",
-                          "useRequest" => false
-                      ), array(true));
-            }
-
-            $wpdb->prefix = $tmpPrefix;
-        } else {
-
-            N2Base::getApplication("smartslider")
-                  ->getApplicationType('backend')
-                  ->render(array(
-                      "controller" => "install",
-                      "action"     => "index",
-                      "useRequest" => false
-                  ), array(true));
-        }
-
-        update_option("n2_ss3_version", N2SS3::$completeVersion);
-
-
-        return true;
-    }
-
-    public static function install_new_blog($blog_id) {
-        global $wpdb;
-        N2WP::install_new_blog($blog_id);
-
-        $tmpPrefix    = $wpdb->prefix;
-        $wpdb->prefix = $wpdb->get_blog_prefix($blog_id);
+        N2WP::install();
 
         N2Base::getApplication("smartslider")
               ->getApplicationType('backend')
@@ -283,13 +251,16 @@ class SmartSlider3 {
                   "useRequest" => false
               ), array(true));
 
-        $wpdb->prefix = $tmpPrefix;
+        update_option("n2_ss3_version", N2SS3::$completeVersion);
+
+
+        return true;
     }
 
     public static function delete_blog($blog_id, $drop) {
-        if ($drop) {
-            N2WP::delete_blog($blog_id, $drop);
+        N2WP::delete_blog($blog_id, $drop);
 
+        if ($drop) {
             global $wpdb;
             $prefix = $wpdb->get_blog_prefix($blog_id);
             $wpdb->query('DROP TABLE IF EXISTS ' . $prefix . 'nextend2_smartslider3_generators, ' . $prefix . 'nextend2_smartslider3_sliders,	' . $prefix . 'nextend2_smartslider3_slides, ' . $prefix . 'nextend2_smartslider3_sliders_xref;');

@@ -91,7 +91,7 @@
     <div class="top-header">
       <div class="container">
         <ul class="list-unstyled list-inline">
-          <li><span class="hidden-xs">119021, г. Москва, Зубовский бульвар, д. 22/39</span></li>
+          <li id="go_to_footer" data-href="footer"><span class="hidden-xs">119021, г. Москва, Зубовский бульвар, д. 22/39</span></li>
           <li><a href="mailto:info@eab.ru"><span class="hidden-xs">info@eab.ru</span></a></li>
         </ul>
         <?php wp_nav_menu( array(

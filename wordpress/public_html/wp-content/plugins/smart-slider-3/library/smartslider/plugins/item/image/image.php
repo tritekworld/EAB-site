@@ -6,7 +6,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
 
     protected $type = 'image';
 
-    protected $priority = 4;
+    protected $priority = 3;
 
     protected $layerProperties = array("desktopportraitwidth" => "300");
 
@@ -16,7 +16,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Image', 'Slide item');
-        $this->group = n2_('Basic');
+        $this->group = n2_x('Image', 'Layer group');
     }
 
     private function initDefaultStyle() {
@@ -49,7 +49,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
             'alt'            => '',
             'title'          => '',
             'link'           => '#|*|_self',
-            'size'           => '100%|*|auto',
+            'size'           => 'auto|*|auto',
             'style'          => $this->style,
             'cssclass'       => '',
             'image-optimize' => 1
@@ -129,7 +129,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
 
         $misc = new N2ElementGroup($settings, 'item-image-misc', '', array(
         ));
-        $size = new N2ElementMixed($misc, 'size', '', '100%|*|auto');
+        $size = new N2ElementMixed($misc, 'size', '', 'auto|*|auto');
         new N2ElementText($size, 'size-1', n2_('Width'), '', array(
             'style' => 'width:60px;'
         ));

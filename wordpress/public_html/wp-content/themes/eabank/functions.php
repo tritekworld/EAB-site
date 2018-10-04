@@ -1,5 +1,8 @@
 <?php 
-
+function my_deregister_scripts(){
+  wp_deregister_script( 'wp-embed' );
+}
+add_action( 'wp_footer', 'my_deregister_scripts' );
 add_action( 'wp_enqueue_scripts', 'eab_styles' );
 add_action( 'wp_enqueue_scripts', 'jquery_lib' );
 add_action( 'wp_enqueue_scripts', 'eab_scripts' );
@@ -26,6 +29,7 @@ function eab_scripts() {
   wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.js', array( 'jquery' ), null );
   wp_enqueue_script( 'formstyler', get_template_directory_uri() . '/assets/js/jquery.formstyler.min.js', array( 'jquery' ), null );
   wp_enqueue_script( 'jquery-ui', get_template_directory_uri() . '/assets/js/jquery-ui.js', array( 'jquery' ), null );
+  wp_enqueue_script( 'jquery-ui-touch-punch', get_template_directory_uri() . '/assets/js/jquery.ui.touch-punch.min.js', array( 'jquery-ui' ), null );
   wp_enqueue_script( 'jquery-number', get_template_directory_uri() . '/assets/js/jquery.number.min.js', array( 'jquery' ), null );
   wp_enqueue_script( 'functions', get_template_directory_uri() . '/assets/js/functions.js', array( 'jquery' ), null );
 }

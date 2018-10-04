@@ -44,6 +44,7 @@ window.n2c = (function (origConsole) {
 n2c.debug(false);
 window.n2const = {
     passiveEvents: false,
+    devicePixelRatio: window.devicePixelRatio || 1,
     isIOS: /iPad|iPhone|iPod/.test(navigator.platform),
     isEdge: /Edge\/\d./i.test(navigator.userAgent),
     isFirefox: navigator.userAgent.toLowerCase().indexOf('firefox') > -1,
@@ -1624,7 +1625,9 @@ N2D('EventBurrito', function ($, undefined) {
 
             //attach event listeners to the document, so that the slider
             //will continue to recieve events wherever the pointer is
-            addEvent(document, events[eventType][1], tMove, events[eventType][1] == 'touchmove' ? {passive: false} : false);
+            if (eventType !== 0) {
+                addEvent(document, events[eventType][1], tMove, false);
+            }
             addEvent(document, events[eventType][2], tEnd, false);
             addEvent(document, events[eventType][3], tEnd, false);
 
@@ -1669,7 +1672,9 @@ N2D('EventBurrito', function ($, undefined) {
             }
 
             if (o.move(event, start, diff, speed, isRealScrolling)) {
-                if (o.preventDefault) preventDefault(event); //Prevent scrolling
+                if (o.preventDefault) {
+                    preventDefault(event); //Prevent scrolling
+                }
             }
         }
 
@@ -1683,7 +1688,9 @@ N2D('EventBurrito', function ($, undefined) {
             !clicksAllowed && event.target && event.target.blur && event.target.blur();
 
             //detach event listeners from the document
-            removeEvent(document, events[eventType][1], tMove, events[eventType][1] == 'touchmove' ? {passive: false} : false);
+            if (eventType !== 0) {
+                removeEvent(document, events[eventType][1], tMove, false);
+            }
             removeEvent(document, events[eventType][2], tEnd, false);
             removeEvent(document, events[eventType][3], tEnd, false);
 
@@ -1694,16 +1701,23 @@ N2D('EventBurrito', function ($, undefined) {
 
         function init() {
             //bind scroll
-            if (!n2const.isIOS || n2const.IOSVersion < 10) {
-                listeners.push(addEvent(document, 'scroll', function (e) {
+            listeners.push(addEvent(document, 'scroll', function (e) {
+                if (window.nextendScrollFocus === undefined || !window.nextendScrollFocus) {
                     isRealScrolling = true;
-                }));
-            }
+                }
+            }));
 
             //bind touchstart
             listeners.push(addEvent(_this, events[eventModel][0], function (e) {
                 tStart(e, eventModel);
-            }));
+            }, eventModel === 0 ? {passive: false} : false));
+
+            if (eventModel === 0) {
+                listeners.push(addEvent(_this, events[0][1], function (e) {
+                    tMove(e, 0);
+                }, {passive: false}));
+            }
+
             //prevent stuff from dragging when using mouse
             listeners.push(addEvent(_this, 'dragstart', preventDefault));
 

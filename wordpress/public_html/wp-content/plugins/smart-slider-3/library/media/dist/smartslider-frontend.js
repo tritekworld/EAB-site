@@ -263,7 +263,7 @@ N2D('SmartSliderLoad', function ($, undefined) {
 
             this.smartSlider.sliderElement.trigger('BeforeVisible');
 
-            this.smartSlider.responsive.alignElement.addClass('n2-ss-slider-align-visible');
+            this.smartSlider.responsive.alignElement.addClass('n2-ss-align-visible');
 
             n2c.log('Fade start');
             this.smartSlider.sliderElement
@@ -479,9 +479,14 @@ N2D('SmartSliderAbstract', function ($, undefined) {
         var id = elementID.substr(1);
         this.elementID = id;
 
-        if (window[id] && window[id] instanceof SmartSliderAbstract && $.contains(document.body, window[id].sliderElement.get(0))) {
-            console.error('Slider [#' + id + '] embedded multiple times');
-            return;
+        if (window[id] && window[id] instanceof SmartSliderAbstract) {
+            if (window[id].sliderElement === undefined) {
+                console.error('Slider [#' + id + '] inited multiple times');
+                return;
+            } else if ($.contains(document.body, window[id].sliderElement.get(0))) {
+                console.error('Slider [#' + id + '] embedded multiple times');
+                return;
+            }
         }
 
         this.readyDeferred = $.Deferred();
@@ -497,7 +502,14 @@ N2D('SmartSliderAbstract', function ($, undefined) {
         // Register our object to a global variable
         window[id] = this;
 
-        this.waitForExists(id, parameters);
+        if (parameters.isDelayed !== undefined && parameters.isDelayed) {
+            $(window).ready($.proxy(function () {
+                this.waitForExists(id, parameters);
+            }, this));
+        } else {
+            this.waitForExists(id, parameters);
+        }
+
     }
 
     SmartSliderAbstract.prototype.kill = function () {
@@ -548,7 +560,7 @@ N2D('SmartSliderAbstract', function ($, undefined) {
 
     SmartSliderAbstract.prototype.onSliderExists = function (id, parameters, $sliderElement) {
 
-        if ($sliderElement.prop('tagName') == 'SCRIPT') {
+        if ($sliderElement.prop('tagName') === 'SCRIPT') {
             var dependency = $sliderElement.data('dependency'),
                 delay = $sliderElement.data('delay'),
                 rocketLoad = $.proxy(function () {
@@ -1104,8 +1116,12 @@ N2D('SmartSliderAbstract', function ($, undefined) {
         if (this.responsive.parameters.focusUser && !isSystem || this.responsive.parameters.focusAutoplay && isSystem) {
             var top = this.sliderElement.offset().top - (this.responsive.verticalOffsetSelectors.height() || 0);
             if ($(window).scrollTop() !== top) {
+                window.nextendScrollFocus = true;
                 $("html, body").animate({scrollTop: top}, 400, $.proxy(function () {
                     deferred.resolve();
+                    setTimeout(function () {
+                        window.nextendScrollFocus = false;
+                    }, 300);
                 }, this));
             } else {
                 deferred.resolve();
@@ -1445,7 +1461,8 @@ N2D('SmartSliderWidgets', function ($, undefined) {
             hover: false,
             nonCarouselFirst: false,
             nonCarouselLast: false,
-            currentSlideIndex: -1
+            currentSlideIndex: -1,
+            singleSlide: false
         };
 
         this.widgets = {
@@ -1517,11 +1534,23 @@ N2D('SmartSliderWidgets', function ($, undefined) {
                 state = false;
             }
 
+            if (state && this.states['singleSlide']) {
+                if (widgetName === 'previous' || widgetName === 'next' || widgetName === 'bullet' || widgetName === 'autoplay' || widgetName === 'indicator') {
+                    state = false;
+                }
+            }
+
             this.widgets[widgetName].toggleClass('n2-ss-widget-hidden', !state);
         }
     };
 
     SmartSliderWidgets.prototype.onReady = function () {
+        this.slider.sliderElement
+            .on('slideCountChanged', $.proxy(function () {
+                    this.setState('singleSlide', this.slider.slides.length <= 1);
+                }, this)
+            );
+
         this.dimensions = this.slider.dimensions;
 
         this.$vertical = this.sliderElement.find('[data-position="above"],[data-position="below"]').not('.nextend-shadow');
@@ -1560,7 +1589,10 @@ N2D('SmartSliderWidgets', function ($, undefined) {
             }, this);
 
             refreshSlideIndex(null, this.slider.currentRealSlide.index);
-            this.slider.sliderElement.on('sliderSwitchTo', refreshSlideIndex);
+            this.slider.sliderElement
+                .on({
+                    sliderSwitchTo: refreshSlideIndex
+                });
         }
 
         this.variableElementsDimension = {
@@ -2633,8 +2665,8 @@ N2D('SmartSliderControlFullscreen', function ($, undefined) {
         // Note that the browser fullscreen (triggered by short keys) might
         // be considered different from content fullscreen when expecting a boolean
         return ((document.fullscreenElement && document.fullscreenElement !== null) ||    // alternative standard methods
-        (document.msFullscreenElement && document.msFullscreenElement !== null) ||
-        document.mozFullScreen || document.webkitIsFullScreen);                   // current working methods
+            (document.msFullscreenElement && document.msFullscreenElement !== null) ||
+            document.mozFullScreen || document.webkitIsFullScreen);                   // current working methods
     };
 
 
@@ -2731,18 +2763,17 @@ N2D('SmartSliderControlScroll', function ($, undefined) {
     function SmartSliderControlScroll(slider) {
 
         this.preventScroll = false;
-        this._preventScrollTimeout = null;
+        this.preventScrollGlobal = false;
 
         this.slider = slider;
 
         slider.sliderElement.on('DOMMouseScroll mousewheel', $.proxy(this.onMouseWheel, this));
-        slider.sliderElement.on('mainAnimationComplete', $.proxy(this.clearScrollTimeout, this));
 
         slider.controls.scroll = this;
     }
 
     SmartSliderControlScroll.prototype.onMouseWheel = function (e) {
-        if (!this.preventScroll) {
+        if (this.preventScroll === false) {
 
             var up = false;
             if (e.originalEvent) {
@@ -2753,36 +2784,49 @@ N2D('SmartSliderControlScroll', function ($, undefined) {
 
             if (up) {
                 if (this.slider.previous()) {
-                    this.preventScrollTimeout(e);
+                    e.preventDefault();
+
+                    this.preventRepeat();
+                    this.preventGlobal();
                 }
             } else {
                 if (this.slider.next()) {
-                    this.preventScrollTimeout(e);
+                    e.preventDefault();
+
+                    this.preventRepeat();
+                    this.preventGlobal();
                 }
             }
         } else {
-            this.preventScrollTimeout(e);
+            e.preventDefault();
+
+            this.preventRepeat(e);
         }
     };
 
-    SmartSliderControlScroll.prototype.clearScrollTimeout = function () {
-        if (this._preventScrollTimeout !== null) {
-            clearTimeout(this._preventScrollTimeout);
+    SmartSliderControlScroll.prototype.preventRepeat = function () {
+        if (this.preventScroll !== false) {
+            clearTimeout(this.preventScroll);
         }
-        this.preventScroll = false;
-        this._preventScrollTimeout = null;
-    };
-
-    SmartSliderControlScroll.prototype.preventScrollTimeout = function (e) {
-        if (this._preventScrollTimeout !== null) {
-            clearTimeout(this._preventScrollTimeout);
-        }
-        this.preventScroll = true;
-        e.preventDefault();
-        this._preventScrollTimeout = setTimeout($.proxy(function () {
+        this.preventScroll = setTimeout($.proxy(function () {
             this.preventScroll = false;
-            this._preventScrollTimeout = null;
-        }, this), 400);
+            if (this.preventScrollGlobal !== false) {
+                clearTimeout(this.preventScrollGlobal);
+                this.preventScrollGlobal = false;
+            }
+        }, this), 200);
+    };
+
+    SmartSliderControlScroll.prototype.preventGlobal = function () {
+        if (this.preventScrollGlobal !== false) {
+            clearTimeout(this.preventScrollGlobal);
+        }
+        this.preventScrollGlobal = setTimeout($.proxy(function () {
+            if (this.preventScroll !== false) {
+                clearTimeout(this.preventScroll);
+            }
+            this.preventScroll = false;
+        }, this), 2000);
     };
 
     return SmartSliderControlScroll;
@@ -3586,6 +3630,26 @@ N2D('FrontendSliderSlide', ['FrontendComponentSlideAbstract'], function ($, unde
         return this.background.hasVideo();
     };
 
+    FrontendSliderSlide.prototype.getTitle = function () {
+        return this.$element.data('title');
+    };
+
+    FrontendSliderSlide.prototype.getDescription = function () {
+        return this.$element.data('description');
+    };
+
+    FrontendSliderSlide.prototype.getThumbnail = function () {
+        return this.$element.data('thumbnail');
+    };
+
+    FrontendSliderSlide.prototype.getThumbnailType = function () {
+        return this.$element.data('thumbnail-type');
+    };
+
+    FrontendSliderSlide.prototype.hasLink = function () {
+        return !!this.$element.data('haslink');
+    };
+
     return FrontendSliderSlide;
 });
 N2D('FrontendComponentSlideAbstract', ['FrontendComponent'], function ($, undefined) {
@@ -3763,20 +3827,20 @@ N2D('SmartSliderSlideBackgroundImage', function ($, undefined) {
                 opacity: this.opacity / 100
             })
             .insertAfter($el);
-			
-		
-		if (background.mode === 'blurfit') {
-			if(window.n2FilterProperty){
-				this.$background = this.$background.add(this.$background.clone()
-					.insertAfter(this.$background));
-				this.$background.first().css({
-					margin: '-' + (7 * 2) + 'px',
-					padding: (7 * 2) + 'px'
-				}).css(window.n2FilterProperty, 'blur(' + 7 + 'px)');
-			} else {
-				background.element.attr('data-mode', 'fill');
-				background.mode = 'fill';
-			}
+
+
+        if (background.mode === 'blurfit') {
+            if (window.n2FilterProperty) {
+                this.$background = this.$background.add(this.$background.clone()
+                    .insertAfter(this.$background));
+                this.$background.first().css({
+                    margin: '-' + (7 * 2) + 'px',
+                    padding: (7 * 2) + 'px'
+                }).css(window.n2FilterProperty, 'blur(' + 7 + 'px)');
+            } else {
+                background.element.attr('data-mode', 'fill');
+                background.mode = 'fill';
+            }
         }
 
         if (window.n2FilterProperty) {
@@ -3834,6 +3898,15 @@ N2D('SmartSliderSlideBackgroundImage', function ($, undefined) {
                 var img = e.images[0].img;
                 this.width = img.naturalWidth;
                 this.height = img.naturalHeight;
+
+                switch (this.background.mode) {
+                    case 'tile':
+                    case 'center':
+                        if (n2const.devicePixelRatio > 1) {
+                            this.$background.css('background-size', (this.width / n2const.devicePixelRatio) + 'px ' + (this.height / n2const.devicePixelRatio) + 'px');
+                        }
+                        break;
+                }
 
                 this.deferred.resolve();
             }, this));
@@ -4443,7 +4516,7 @@ N2D('FrontendComponentRow', ['FrontendComponent'], function ($, undefined) {
         }
 
         this.$rowInner.css({
-            width: 'calc(100% + ' + gutterValue + 'px)',
+            width: 'calc(100% + ' + (gutterValue + 1) + 'px)',
             margin: -sideGutterValue + 'px'
         });
     };
@@ -4542,6 +4615,7 @@ N2D('SmartSliderResponsive', function ($, undefined) {
         this.disableTransitions = false;
         this.disableTransitionsTimeout = null;
         this.lastClientHeight = 0;
+        this.lastClientHeightTime = 0;
         this.lastOrientation = 0;
 
         this.invalidateResponsiveState = true;
@@ -5181,10 +5255,12 @@ N2D('SmartSliderResponsive', function ($, undefined) {
 
                     clientHeight = window.n2ClientHeight || clientHeight;
 
-                    if (!isOrientationChanged && Math.abs(clientHeight - this.lastClientHeight) < 100) {
+                    var time = $.now();
+                    if (!isOrientationChanged && Math.abs(clientHeight - this.lastClientHeight) < 100 && time - this.lastClientHeightTime > 400) {
                         clientHeight = this.lastClientHeight;
                     } else {
                         this.lastClientHeight = clientHeight;
+                        this.lastClientHeightTime = time;
                     }
                 } else {
                     clientHeight = window.n2ClientHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -5199,6 +5275,7 @@ N2D('SmartSliderResponsive', function ($, undefined) {
         }
 
         if (hasOrientationOrDeviceChange) {
+            this.invalidateResponsiveState = true;
             var lastNormalized = this._normalizeMode(SmartSliderResponsive._DeviceMode[lastDevice], SmartSliderResponsive._DeviceOrientation[lastOrientation]),
                 normalized = this._normalizeMode(SmartSliderResponsive._DeviceMode[this.deviceMode], SmartSliderResponsive._DeviceOrientation[this.orientation]);
 

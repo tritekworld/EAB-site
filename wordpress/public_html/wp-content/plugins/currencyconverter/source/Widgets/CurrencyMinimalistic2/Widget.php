@@ -92,12 +92,12 @@ class Widget extends \WP_Widget {
 								// This pair available?
 								if( $currency_pair->is_available() ) {
 									// Prepare extra small numbers like 0.000001 $
-									$currency_data_filtered = Text::currency_info_for_round( $currency_pair, 2 );
+									$currency_data_filtered = Text::currency_info_for_round( $currency_pair, 4 );
 
 									?>
 										<div class="currencyconverter-minimalistic-ver2-single-currency <?php echo $first_currency == true ? '' : 'currencyconverter-minimalistic-ver2-separator-dash' ?>">
 											<div class="currencyconverter-minimalistic-ver2-row">
-												<span class="currencyconverter-minimalistic-ver2-currency-price"><?php echo number_format_i18n( $currency_data_filtered['rate'], 2); ?></span>
+												<span class="currencyconverter-minimalistic-ver2-currency-price"><?php echo number_format_i18n( $currency_data_filtered['rate'], 4); ?></span>
 											</div>
 											<div class="currencyconverter-minimalistic-ver2-row currencyconverter-minimalistic-ver2-row-captions">
 												<span class="currencyconverter-minimalistic-ver2-inline-list">
@@ -120,7 +120,7 @@ class Widget extends \WP_Widget {
 													?><span class="currencyconverter-minimalistic-ver2-inline-list-item currencyconverter-minimalistic-ver2-change-percentage"><?php
 														printf(
 															/* translators: %s - currency change number (digit) in percentage. %% - one percentage symbol (typed twice for escape in printf() func.) */
-															__( '%s<span class="currencyconverter-percentage-symbol">%%</span>', Plugin::NAME ), Text::number_format_i18n_plus_minus( $currency_data_filtered['change_percentage'], 2 )
+															__( '%s<span class="currencyconverter-percentage-symbol">%%</span>', Plugin::NAME ), Text::number_format_i18n_plus_minus( $currency_data_filtered['change_percentage'], 4 )
 														);
 													?></span><?php
 													if( $currency_data_filtered['per'] > 1 ) {

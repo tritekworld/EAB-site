@@ -87,30 +87,6 @@
           <div class="col-md-4 text-center">
             <div class="box">
               <div class="box-title">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/partners/wallpaper.png" alt="">
-                <span>ООО «Стройобои»</span>
-              </div> <!-- //.box-title -->
-              <div class="hover-box">
-                <p class="font-size-16">один из крупнейших поставщиков обоев высокого качества на российском рынке. Занимается розничной и оптовой продажей экологичных флизелиновых и бумажных обоев производства Московской Обойной Фабрики, продажей высококачественных виниловых обоев</p>
-                <a href="http://www.wallpaper.ru/" class="btn" target="_blank">Перейти</a>
-              </div> <!-- //.hover-box -->
-            </div> <!-- //.box -->
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="box">
-              <div class="box-title">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/partners/oboitd.png" alt="">
-                <span>ООО «Дом обоев на Красносельской»</span>
-              </div> <!-- //.box-title -->
-              <div class="hover-box">
-                <p>оптовая торговля обоями</p>
-                <a href="http://oboitd.ru/" class="btn" target="_blank">Перейти</a>
-              </div> <!-- //.hover-box -->
-            </div> <!-- //.box -->
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="box">
-              <div class="box-title">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/partners/vegagroupp.png" alt="">
                 <span>ООО «ВегаГрупп»</span>
               </div> <!-- //.box-title -->
@@ -153,6 +129,30 @@
               <div class="hover-box">
                 <p class="font-size-16">официальный представитель ведущих фирм производителей современного оборудования для контроля трубопроводов, сварных соединений, бетонных объектов, линий электропередач</p>
                 <a href="http://www.panatest.ru/" class="btn" target="_blank">Перейти</a>
+              </div> <!-- //.hover-box -->
+            </div> <!-- //.box -->
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="box">
+              <div class="box-title">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/partners/dom_rf.PNG" alt="">
+                <span>АО «ДОМ.РФ»</span>
+              </div> <!-- //.box-title -->
+              <div class="hover-box">
+                <p>Единый институт развития в жилищной сфере</p>
+                <a href="https://xn--d1aqf.xn--p1ai/" class="btn" target="_blank">Перейти</a>
+              </div> <!-- //.hover-box -->
+            </div> <!-- //.box -->
+          </div>
+		  <div class="col-md-4 text-center">
+            <div class="box">
+              <div class="box-title">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/partners/Kenoll.jpg" alt="">
+                <span>ООО «Кенолл»</span>
+              </div> <!-- //.box-title -->
+              <div class="hover-box">
+                <p class="font-size-16">Официальный представитель ведущих Сербских производителей продукции из металла.</p>
+                <a href="http://www.kenoll.ru" class="btn" target="_blank">Перейти</a>
               </div> <!-- //.hover-box -->
             </div> <!-- //.box -->
           </div>

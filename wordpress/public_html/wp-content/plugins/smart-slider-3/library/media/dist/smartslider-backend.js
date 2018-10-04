@@ -2245,11 +2245,11 @@ N2D('QuickSlides', function ($, undefined) {
                                 tr = $('<tr />').appendTo(table),
                                 id = slide.data('slideid');
                             tr.append($('<td />').append('<img src="' + slide.data('image') + '" style="width:100px;"/>'));
-                            tr.append($('<td />').append(that.createInput('Name', 'title-' + id, slide.data('title'), 'width: 240px;')));
-                            tr.append($('<td />').append(that.createTextarea('Description', 'description-' + id, slide.data('description'), 'width: 330px;height:24px;')));
+                            tr.append($('<td />').append(that.createInput(n2_('Name'), 'title-' + id, slide.data('title'), 'width: 240px;')));
+                            tr.append($('<td />').append(that.createTextarea(n2_('Description'), 'description-' + id, slide.data('description'), 'width: 330px;height:24px;')));
                             var link = slide.data('link').split('|*|');
-                            tr.append($('<td />').append(that.createLink('Link', 'link-' + id, link[0], 'width: 180px;')));
-                            tr.append($('<td />').append(that.createTarget('Target window', 'target-' + id, link.length > 1 ? link[1] : '_self', '')));
+                            tr.append($('<td />').append(that.createLink(n2_('Link'), 'link-' + id, link[0], 'width: 180px;')));
+                            tr.append($('<td />').append(that.createTarget(n2_('Target window'), 'target-' + id, link.length > 1 ? link[1] : '_self', '')));
 
                             new N2Classes.FormElementUrl('link-' + id, nextend.NextendElementUrlParams);
 
@@ -3400,6 +3400,12 @@ N2D('EditorAbstract', function ($, undefined) {
 
         this.sliderElementID = sliderElementID;
         this.slideContentElementID = slideContentElementID;
+
+        this.readyDeferred.done($.proxy(function () {
+            N2D('SSEditor', $.proxy(function () {
+                return this;
+            }, this));
+        }, this));
 
         this.options = $.extend({
             slideAsFile: 0,
@@ -7206,7 +7212,7 @@ N2D('CanvasUserInterface', function ($, undefined) {
             currentLayer = currentLayer.group;
         } while (currentLayer !== this.fragmentEditor.mainContainer);
 
-        if (top < scrollTop || top > scrollTop + this.paneLeft.height() - 40) {
+        if (top < scrollTop || top > scrollTop + this.paneLeft.height() - 32) {
             this.paneLeft.scrollTop(top);
             this.paneRight.scrollTop(top);
         }
@@ -7220,11 +7226,11 @@ N2D('CanvasUserInterface', function ($, undefined) {
         var cb = $.proxy(function (e) {
             var top = this.paneLeft.scrollTop();
             if (e.originalEvent.deltaY > 0) {
-                top += 40;
+                top += 32;
             } else {
-                top -= 40;
+                top -= 32;
             }
-            top = Math.round(top / 40) * 40;
+            top = Math.round(top / 32) * 32;
             this.paneLeft.scrollTop(top);
             this.paneRight.scrollTop(top);
             e.preventDefault();
@@ -7276,7 +7282,7 @@ N2D('CanvasUserInterface', function ($, undefined) {
     };
 
     CanvasUserInterface.prototype.__calculateDesiredHeight = function (h) {
-        return Math.round(Math.min(Math.max(40, h), (window.innerHeight || document.documentElement.clientHeight) / 2) / 40) * 40 + 48;
+        return Math.round(Math.min(Math.max(32, h), (window.innerHeight || document.documentElement.clientHeight) / 2) / 32) * 32 + 48;
     };
 
 
@@ -8308,7 +8314,7 @@ N2D('CanvasSettings', function ($, undefined) {
             editor.toggleClass('n2-ss-lock-guides', value == 1);
         }, this));
 
-        this._addAction('Clear Guides', $.proxy(function () {
+        this._addAction(n2_('Clear Guides'), $.proxy(function () {
             this.ruler.clearGuides();
         }, this))
     };
@@ -9319,7 +9325,7 @@ N2D('PlacementAbsolute', ['PlacementAbstract'], function ($, undefined) {
         var value = this.layer.getProperty('align');
         this.$layer.attr('data-align', value);
 
-        if (from != 'history' && value != oldValue) {
+        if (from !== 'history' && value != oldValue) {
             this.setPositionLeft(this.$layer.position().left);
         }
     };
@@ -9327,7 +9333,7 @@ N2D('PlacementAbsolute', ['PlacementAbstract'], function ($, undefined) {
         var value = this.layer.getProperty('valign');
         this.$layer.attr('data-valign', value);
 
-        if (from != 'history' && value != oldValue) {
+        if (from !== 'history' && value != oldValue) {
             this.setPositionTop(this.$layer.position().top);
         }
     };
@@ -11546,6 +11552,7 @@ N2D('ComponentAbstract', dependencies, function ($, undefined) {
         this.addProperties($layer);
 
         this.layer = $layer.data('layerObject', this);
+
         this.layer.triggerHandler('layerStarted', [this]);
 
         this.$.triggerHandler('load');
@@ -13249,7 +13256,9 @@ N2D('Layer', ['ComponentAbstract'], function ($, undefined) {
 
     /**
      *
-     * @param item {optional}
+     * @param e if provided, the layerWindow will show
+     * @param context
+     * @param preventExitFromSelection
      */
     Layer.prototype.activate = function (e, context, preventExitFromSelection) {
 
@@ -14471,7 +14480,7 @@ N2D('Row', ['LayerContainer', 'ComponentAbstract'], function ($, undefined) {
         }
 
         this.$rowInner.css({
-            width: 'calc(100% + ' + gutterValue + 'px)',
+            width: 'calc(100% + ' + (gutterValue + 1) + 'px)',
             margin: -sideGutterValue + 'px'
         });
 

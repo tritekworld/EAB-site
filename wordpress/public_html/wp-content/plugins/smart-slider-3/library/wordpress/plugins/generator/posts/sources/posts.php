@@ -20,19 +20,19 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         new N2ElementWordPressTaxonomies($group, 'postcustomtaxonomy', n2_('Taxonomies'), 0, array(
             'postType' => 'post'
         ));
-		
-        $posts  = new N2ElementGroup($filter, 'poststickygroup', n2_('Posts'));
-		
+
+        $posts = new N2ElementGroup($filter, 'poststickygroup', n2_('Posts'));
+
         new N2ElementFilter($posts, 'poststicky', n2_('Sticky'), 0);
-		new N2ElementOnoff($posts, 'postshortcode', n2_('Remove shortcodes from description'), 1);
-		
-		$date  = new N2ElementGroup($filter, 'customvariablegroup', n2_('Customized variables'));
-		
-		new N2ElementTextarea($date, 'customdates', n2_('Create custom date variables') . ' (' . n2_('one per line') . ')', 'variable||PHP date format&#xA;modified||Ymd&#xA;date||F j, Y, g:i a&#xA;started||F&#xA;ended||D', array(
+        new N2ElementOnoff($posts, 'postshortcode', n2_('Remove shortcodes from description'), 1);
+
+        $date = new N2ElementGroup($filter, 'customvariablegroup', n2_('Customized variables'));
+
+        new N2ElementTextarea($date, 'customdates', n2_('Create custom date variables') . ' (' . n2_('one per line') . ')', 'variable||PHP date format&#xA;modified||Ymd&#xA;date||F j, Y, g:i a&#xA;started||F&#xA;ended||D', array(
             'fieldStyle' => 'width:300px;height: 100px;',
             'tip'        => n2_('You can write down an existing variable\'s name,  then two | signs and lastly any date format (http://php.net/manual/en/function.date.php) in separate lines and new variables will be created for them. The name of the new variables will be the same as the original variable and "_datetime" will be added to the end of them.')
         ));
-		
+
         new N2ElementTextarea($date, 'translatecustomdates', n2_('Translate your custom date variables') . ' (' . n2_('one per line') . ')', 'from||to&#xA;Monday||Monday&#xA;jan||jan', array(
             'fieldStyle' => 'width:300px;height: 100px;',
             'tip'        => n2_('You can translate the newly created variables. Write the original text, like \'Monday\', then two | signs and the text you want it to be translated to, for example \'Montag\'. Together: Monday||Montag')
@@ -79,9 +79,9 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
 
         return $from;
     }
-	
-	private function linesToArray($lines){
-		$value = preg_split('/$\R?^/m', $lines);
+
+    private function linesToArray($lines) {
+        $value = preg_split('/$\R?^/m', $lines);
         $data  = array();
         if (!empty($value)) {
             foreach ($value AS $v) {
@@ -91,14 +91,14 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
                 }
             }
         }
-		return $data;
-	}
-	
-	private function isTimeStamp($timestamp){
-		return ((string) (int) $timestamp === $timestamp) 
-			&& ($timestamp <= PHP_INT_MAX)
-			&& ($timestamp >= ~PHP_INT_MAX);
-	}
+        return $data;
+    }
+
+    private function isTimeStamp($timestamp) {
+        return ((string)(int)$timestamp === $timestamp)
+            && ($timestamp <= PHP_INT_MAX)
+            && ($timestamp >= ~PHP_INT_MAX);
+    }
 
     public function getPostType() {
         return $this->postType;
@@ -115,7 +115,7 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         $startFrom            = $contentStart = $contentEnd = 0;
         while (false !== ($contentStart = strpos($str, $startDelimiter, $startFrom))) {
             $contentStart += $startDelimiterLength;
-            $contentEnd = strpos($str, $endDelimiter, $contentStart);
+            $contentEnd   = strpos($str, $endDelimiter, $contentStart);
             if (false === $contentEnd) {
                 break;
             }
@@ -124,6 +124,31 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         }
 
         return $contents;
+    }
+
+    var $ElementorCount      = 0;
+    var $ElementorWidgetType = '';
+
+    function getElementorTextEditors($array) {
+        $datas = array();
+        if (!is_array($array)) {
+            $array = (array)$array;
+        }
+        foreach ($array as $key => $value) {
+            if (is_array($value) || is_object($value)) {
+                $datas = array_merge($datas, $this->getElementorTextEditors($value, $key));
+            } else {
+                if (isset($array['widgetType'])) {
+                    $this->ElementorWidgetType = $array['widgetType'];
+                }
+                if ($key == 'editor' && $this->ElementorWidgetType == 'text-editor') {
+                    $this->ElementorCount++;
+                    $datas[$key . $this->ElementorCount] = $value;
+                }
+            }
+        }
+
+        return $datas;
     }
 
     protected function _getData($count, $startIndex) {
@@ -173,9 +198,9 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
                     );
                 }
                 if (!empty($tax_query)) {
-                    array_unshift($tax_query, array('relation' => 'AND'));
+                    array_unshift($tax_query, array( 'relation' => 'AND' ));
                 } else {
-                    $tax_query = array('relation' => 'AND');
+                    $tax_query = array( 'relation' => 'AND' );
                 }
                 $tax_query = array_merge($tax_query, $term_helper);
             }
@@ -195,14 +220,14 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
             'posts_per_page'   => $count,
             'tax_query'        => $tax_query
         );
-		
-		if($orderBy != 'none'){
-			$postsFilter += array(
-				'orderby'            => $orderBy,
-				'order'              => $order,
-				'ignore_custom_sort' => true
-			);
-		}
+
+        if ($orderBy != 'none') {
+            $postsFilter += array(
+                'orderby'            => $orderBy,
+                'order'              => $order,
+                'ignore_custom_sort' => true
+            );
+        }
 
         $categories = (array)N2Parse::parse($this->data->get('postscategory'));
         if (!in_array(0, $categories)) {
@@ -210,19 +235,19 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         }
 
         $poststicky = $this->data->get('poststicky');
-		switch($poststicky){
-			case 1:
-				$postsFilter += array(
-					'post__in' => get_option('sticky_posts')
-				);
-				break;
-			case -1:
-				$postsFilter += array(
-					'post__not_in' => get_option('sticky_posts')
-				);
-				break;
-		}
-		
+        switch ($poststicky) {
+            case 1:
+                $postsFilter += array(
+                    'post__in' => get_option('sticky_posts')
+                );
+                break;
+            case -1:
+                $postsFilter += array(
+                    'post__not_in' => get_option('sticky_posts')
+                );
+                break;
+        }
+
         if (has_filter('the_content', 'siteorigin_panels_filter_content')) {
             $siteorigin_panels_filter_content = true;
             remove_filter('the_content', 'siteorigin_panels_filter_content');
@@ -231,33 +256,38 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         }
 
         $posts = get_posts($postsFilter);
-		
-		$prev_timezone   = date_default_timezone_get();
+
+        $prev_timezone   = date_default_timezone_get();
         $timezone_string = get_option('timezone_string');
         if ($timezone_string !== '') {
             date_default_timezone_set($timezone_string);
         }
 
-        $custom_dates = $this->linesToArray($this->data->get('customdates', ''));
-        $translate = $this->linesToArray($this->data->get('translatecustomdates', ''));
+        $custom_dates  = $this->linesToArray($this->data->get('customdates', ''));
+        $translate     = $this->linesToArray($this->data->get('translatecustomdates', ''));
         $date_function = $this->data->get('datefunction', 'date_i18n');
 
         $data = array();
         for ($i = 0; $i < count($posts); $i++) {
-            $record = array();
+            $this->ElementorCount = 0;
+            $record               = array();
 
             $post = $posts[$i];
             setup_postdata($post);
 
-            $record['id']          = $post->ID;
-            $record['url']         = get_permalink();
-            $record['title']       = apply_filters('the_title', get_the_title());
+            $record['id']  = $post->ID;
+            $record['url'] = get_permalink();
+            if (function_exists('buddyform_strip_html_title_for_entries_in_post_screen')) {
+                $record['title'] = apply_filters('the_title', get_the_title(), $post->ID);
+            } else {
+                $record['title'] = apply_filters('the_title', get_the_title());
+            }
             $record['content'] = get_the_content();
-			if($this->data->get('postshortcode', 1)){
-				$record['description'] = preg_replace('#\[[^\]]+\]#', '',$record['content']);
-			} else {
-				$record['description'] = $record['content'];
-			}
+            if ($this->data->get('postshortcode', 1)) {
+                $record['description'] = preg_replace('#\[[^\]]+\]#', '', $record['content']);
+            } else {
+                $record['description'] = $record['content'];
+            }
             if (class_exists('ET_Builder_Plugin')) {
                 if (strpos($record['description'], 'et_pb_slide background_image') !== false) {
                     $et_slides = $this->get_string_between($record['description'], 'et_pb_slide background_image="', '"');
@@ -396,26 +426,34 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
                         }
                     }
                 }
+                if (!empty($record['elementordata'])) {
+                    $elementordatas = json_decode($record['elementordata']);
+                    foreach ($elementordatas AS $elementordata) {
+                        foreach ($this->getElementorTextEditors($elementordata) AS $elementorKey => $elementorVal) {
+                            $record[$elementorKey] = $elementorVal;
+                        }
+                    }
+                }
             }
 
             $record['excerpt'] = get_the_excerpt();
-			
-			if (!empty($custom_dates)) {
-				foreach($custom_dates AS $custom_date_key => $custom_date_format){
-					if(array_key_exists($custom_date_key, $record)){
-						if($this->isTimeStamp($record[$custom_date_key])){
-							$date = $record[$custom_date_key];
-						} else {
-							$date = strtotime($record[$custom_date_key]);
-						}
-						
-						if ($date_function == 'date_i18n') {
-							$record[$custom_date_key . '_datetime'] = $this->translate(date_i18n($custom_date_format, $date), $translate);
-						} else {
-							$record[$custom_date_key . '_datetime'] = $this->translate(date($custom_date_format, $date), $translate);
-						}
-					}
-				}
+
+            if (!empty($custom_dates)) {
+                foreach ($custom_dates AS $custom_date_key => $custom_date_format) {
+                    if (array_key_exists($custom_date_key, $record)) {
+                        if ($this->isTimeStamp($record[$custom_date_key])) {
+                            $date = $record[$custom_date_key];
+                        } else {
+                            $date = strtotime($record[$custom_date_key]);
+                        }
+
+                        if ($date_function == 'date_i18n') {
+                            $record[$custom_date_key . '_datetime'] = $this->translate(date_i18n($custom_date_format, $date), $translate);
+                        } else {
+                            $record[$custom_date_key . '_datetime'] = $this->translate(date($custom_date_format, $date), $translate);
+                        }
+                    }
+                }
             }
 
             $data[$i] = &$record;
@@ -431,7 +469,7 @@ class N2GeneratorPostsPosts extends N2GeneratorAbstract {
         wp_reset_postdata();
         $post = $tmpPost;
         if ($post) setup_postdata($post);
-		
+
         if ($timezone_string !== '') {
             date_default_timezone_set($prev_timezone);
         }

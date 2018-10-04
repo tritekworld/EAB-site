@@ -154,9 +154,9 @@ class N2SSSlideComponentRow extends N2SSSlideComponent {
         $this->createColorProperty('bgcolor', '00000000');
         $this->createProperty('bgcolorgradient', 'off');
         $this->createColorProperty('bgcolorgradientend', '00000000');
-        $this->createColorProperty('bgcolor-hover', '00000000');
-        $this->createProperty('bgcolorgradient-hover', 'off');
-        $this->createColorProperty('bgcolorgradientend-hover', '00000000');
+        $this->createColorProperty('bgcolor-hover');
+        $this->createProperty('bgcolorgradient-hover');
+        $this->createColorProperty('bgcolorgradientend-hover');
 
         $this->createProperty('borderradius', 0);
         $this->createProperty('borderradius-hover');

@@ -9,7 +9,6 @@ class N2SmartsliderConflictsModel extends N2SmartsliderConflictsModelAbstract {
         $this->testPluginForgetAboutShortcodeButtons();
         $this->testPluginWPHideAndSecurity();
         $this->testPluginNetbaseWidgetsForSiteOrigin();
-        $this->testPluginDivi();
     }
 
     /**
@@ -49,17 +48,6 @@ class N2SmartsliderConflictsModel extends N2SmartsliderConflictsModelAbstract {
     private function testPluginNetbaseWidgetsForSiteOrigin() {
         if (class_exists('NBT_SiteOrigin_Widgets')) {
             $this->displayConflict('Netbase Widgets For SiteOrigin', n2_('This plugin adds a background image to every SVG and breaks SSL.'), 'https://wordpress.org/support/topic/plugin-messes-up-svg-and-breaks-ssl/');
-
-        }
-    }
-
-    /**
-     * Divi plugin
-     * @url https://www.elegantthemes.com/plugins/divi-builder/
-     */
-    private function testPluginDivi() {
-        if (function_exists('et_is_builder_plugin_active') && et_is_builder_plugin_active()) {
-            $this->displayConflict('Divi Builder plugin', n2_('Divi standalone plugin is not compatible with Smart Slider overwrites the CSS code of the sliders. Divi theme works fine.'), 'https://smartslider3.helpscoutdocs.com/article/55-wordpress-installation');
 
         }
     }

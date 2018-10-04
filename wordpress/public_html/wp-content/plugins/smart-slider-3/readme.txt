@@ -3,8 +3,8 @@ Contributors: nextendweb
 Tags: slider, wordpress slider, image slider, layer slider, responsive slider, slideshow, fullwidth slider, post slider, horizontal slider, vertical slider, photo slider, video slider
 Donate link: https://sites.fastspring.com/nextend/product/smartslider3donate
 Requires at least: 4.6
-Tested up to: 4.9
-Stable tag: 3.3.6
+Tested up to: 5.0
+Stable tag: 3.3.7
 Requires PHP: 5.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -192,6 +192,22 @@ Of course! Smart Slider use protocol relative urls which works fine on http:// a
 9. Layer slider with layers styles. Made with FREE version.
 
 == Changelog ==
+
+= 3.3.7 - 29. August 2018. =
+* NEW TEMPLATE: Brand new [slider template](https://smartslider3.com/main-slider-animation-slide-switching/)
+* Feature: The slider's code is automatically skipped by some AMP plugins (AMP for WordPress and AMP for WP – Accelerated Mobile Pages).
+* Feature: Lazy loader compatibility
+* Feature: Gutenberg support
+* Feature: Smooth scroll speed
+* Feature: Hide controls if only single slide shows
+* Feature: Clear Divi admin localstorage cache for slider selector
+* Fix: WordPress post generator when the origin post contains Smart Slider 3 ACF field
+* Fix: Compatibility with Narratium theme
+* Fix: KeyCDN cache enabler
+* Fix: Admin ajax fix for YOAST SEO when related post ids are used
+* Fix: Borlabs cache plugin conflict
+* Fix: Tablepress compatibility
+* Fix: Borlabs cache fix
 
 = 3.3.6 - 18. July 2018. =
 * Fix: Autoptimize compatibility

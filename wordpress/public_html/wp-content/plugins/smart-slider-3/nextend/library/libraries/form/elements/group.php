@@ -34,7 +34,7 @@ class N2ElementGroup extends N2Element implements N2FormElementContainer {
 
             $html .= N2Html::tag('div', $element->getRowAttributes() + array(
                     'class'      => 'n2-mixed-group ' . $element->getRowClass(),
-                    'data-field' => $element->getName()
+                    'data-field' => $element->getID()
                 ), N2Html::tag('div', array('class' => 'n2-mixed-label' . (($element->hasLabel() ? '' : ' n2-empty-group-label'))), $label) . N2Html::tag('div', array('class' => 'n2-mixed-element'), $fieldHTML));
 
             if ($element->getPost() == 'break') {
